@@ -37,7 +37,7 @@ class SvgFragmentImage(qrcode.image.base.BaseImage):
                           width="1mm", height="1mm")
 
     def _write(self, stream):
-        ET.ElementTree(self._img).write(stream, xml_declaration=False)
+        ET.ElementTree(self._img).write(stream, xml_declaration=False, encoding="unicode")
 
 
 class SvgImage(SvgFragmentImage):
@@ -57,5 +57,5 @@ class SvgImage(SvgFragmentImage):
         return super(SvgImage, self)._rect(row, col, tag="rect")
 
     def _write(self, stream):
-        ET.ElementTree(self._img).write(stream, encoding="UTF-8",
+        ET.ElementTree(self._img).write(stream, encoding="unicode",
                                         xml_declaration=True)
