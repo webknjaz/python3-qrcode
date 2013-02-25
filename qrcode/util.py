@@ -255,13 +255,11 @@ class QRData:
         chosen.
         """
         # Convert data to a (utf-8 encoded) byte-string.
-        if not isinstance(data, basestring):
+        if not isinstance(data, str):
             try:
                 data = str(data)
             except UnicodeEncodeError:
-                data = unicode(data)
-        if isinstance(data, unicode):
-            data = data.encode('utf-8')
+                data = str(data)
 
         if data.isdigit():
             auto_mode = MODE_NUMBER
@@ -287,12 +285,12 @@ class QRData:
 
     def write(self, buffer):
         if self.mode == MODE_NUMBER:
-            for i in xrange(0, len(self.data), 3):
+            for i in range(0, len(self.data), 3):
                 chars = self.data[i:i + 3]
                 bit_length = NUMBER_LENGTH[len(chars)]
                 buffer.put(int(chars), bit_length)
         elif self.mode == MODE_ALPHA_NUM:
-            for i in xrange(0, len(self.data), 2):
+            for i in range(0, len(self.data), 2):
                 chars = self.data[i:i + 2]
                 if len(chars) > 1:
                     buffer.put(ALPHA_NUM.find(chars[0]) * 45 +
